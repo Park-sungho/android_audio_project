@@ -2054,4 +2054,16 @@ public class AudioService extends IAudioService.Stub {
         dumpFocusStack(pw);
         dumpRCStack(pw);
     }
+
+    /* parksungho, Add the OEM audio policy function.*/
+    public boolean setOemAudioOutput(int state) {
+        if (AudioSystem.setOemAudioOutput(state) == AudioSystem.AUDIO_STATUS_OK)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
