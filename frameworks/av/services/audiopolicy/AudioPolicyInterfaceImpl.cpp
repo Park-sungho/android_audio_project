@@ -522,4 +522,22 @@ status_t AudioPolicyService::releaseSoundTriggerSession(audio_session_t session)
     }
     return mAudioPolicyManager->releaseSoundTriggerSession(session);
 }
+/* parksungho, Add the OEM audio policy function.*/
+status_t AudioPolicyService::setOemAudioPolicy(int session)
+{
+    if (mAudioPolicyManager == NULL) {
+        return NO_INIT;
+    }
+    if (!settingsAllowed()) {
+        return PERMISSION_DENIED;
+    }
+    if (state < 0) {
+        return BAD_VALUE;
+    }
+
+    Mutex::Autolock _l(mLock);
+    mAudioPolicyManager->setOemAudioPolicy(session);
+
+    return NO_ERROR;
+}
 }; // namespace android
