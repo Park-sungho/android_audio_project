@@ -174,6 +174,9 @@ public:
             void doOnAudioPortListUpdate();
             void onAudioPatchListUpdate();
             void doOnAudioPatchListUpdate();
+    /* parksungho, Add the OEM audio policy function.*/
+    virtual status_t setOemAudioPolicy(int session);
+
 private:
                         AudioPolicyService() ANDROID_API;
     virtual             ~AudioPolicyService();
