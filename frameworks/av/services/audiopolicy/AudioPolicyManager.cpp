@@ -6536,4 +6536,17 @@ audio_stream_type_t AudioPolicyManager::streamTypefromAttributesInt(const audio_
         return AUDIO_STREAM_MUSIC;
     }
 }
+  
+/* parksungho, Add the OEM audio policy function.*/
+void AudioPolicyManager::setOemAudioPolicy(int session)
+{
+#if defined(OEM_AUDIO_SUPPORT)
+    ALOGD("%s() start session = %d", __FUNCTION__, session);
+    // mOemSession = session;
+    updateDevicesAndOutputs();
+    mpClientInterface->onAudioPortListUpdate();
+#else
+    ALOGV("%s() Not Support, session = %d", __FUNCTION__, session);
+#endif //ANC_AUDIO_CAR_AUDIO_SUPPORT
+}
 }; // namespace android
