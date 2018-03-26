@@ -3744,6 +3744,16 @@ audio_devices_t AudioPolicyManager::getDeviceForStrategy(routing_strategy strate
                 device2 = availableOutputDeviceTypes & AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER;
             }
         }
+#if defined(OEM_AUDIO_SUPPORT)
+        /* parksungho, Add the OEM audio policy function.*/
+        if (device2 == AUDIO_DEVICE_NONE && mAuxOutputState == AUDIO_OEM_POLICY_SESSION_SUBMIX) {
+            device2 = AUDIO_DEVICE_OUT_SPEAKER | (availableOutputDeviceTypes & AUDIO_DEVICE_OUT_REMOTE_SUBMIX);
+        } 
+        if (device2 == AUDIO_DEVICE_NONE && mAuxOutputState == AUDIO_OEM_POLICY_SESSION_LINE) {
+            device2 = availableOutputDeviceTypes & AUDIO_DEVICE_OUT_LINE;
+        }
+#endif
+      
         if (device2 == AUDIO_DEVICE_NONE) {
             device2 = availableOutputDeviceTypes & AUDIO_DEVICE_OUT_WIRED_HEADPHONE;
         }
@@ -6542,7 +6552,7 @@ void AudioPolicyManager::setOemAudioPolicy(int session)
 {
 #if defined(OEM_AUDIO_SUPPORT)
     ALOGD("%s() start session = %d", __FUNCTION__, session);
-    // mOemSession = session;
+    mOemSession = session;
     updateDevicesAndOutputs();
     mpClientInterface->onAudioPortListUpdate();
 #else
