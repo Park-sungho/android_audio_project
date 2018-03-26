@@ -208,6 +208,12 @@ android_media_AudioSystem_getDevicesForStream(JNIEnv *env, jobject thiz, jint st
 {
     return (jint) AudioSystem::getDevicesForStream(static_cast <audio_stream_type_t>(stream));
 }
+/* parksungho, Add the OEM audio policy function.*/
+static jint
+android_media_AudioSystem_setOemAudioPolicy(JNIEnv *env, jobject thiz, jint session)
+{
+    return (jint) check_AudioSystem_Command(AudioSystem::setOemAudioPolicy((int) session));
+}
 // ----------------------------------------------------------------------------
 static JNINativeMethod gMethods[] = {
     {"setParameters",        "(Ljava/lang/String;)I", (void *)android_media_AudioSystem_setParameters},
@@ -228,6 +234,7 @@ static JNINativeMethod gMethods[] = {
     {"setMasterMute",       "(Z)I",     (void *)android_media_AudioSystem_setMasterMute},
     {"getMasterMute",       "()Z",      (void *)android_media_AudioSystem_getMasterMute},
     {"getDevicesForStream", "(I)I",     (void *)android_media_AudioSystem_getDevicesForStream},
+    {"setOemAudioPolicy", "(I)I",    (void *)android_media_AudioSystem_setOemAudioPolicy}, /* parksungho */
 };
 int register_android_media_AudioSystem(JNIEnv *env)
 {
