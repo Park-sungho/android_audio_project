@@ -258,6 +258,13 @@ public class AudioSystem
                                              DEVICE_IN_USB_ACCESSORY |
                                              DEVICE_IN_USB_DEVICE |
                                              DEVICE_IN_DEFAULT);
+    
+    /* parksungho, Add the OEM audio policy function.*/
+    public static final int AUDIO_OEM_POLICY_SESSION_NONE = DEVICE_NONE;
+    public static final int AUDIO_OEM_POLICY_SESSION_BT = DEVICE_OUT_SPEAKER | DEVICE_OUT_BLUETOOTH_A2DP;
+    public static final int AUDIO_OEM_POLICY_SESSION_SUBMIX = DEVICE_OUT_SPEAKER | DEVICE_IN_REMOTE_SUBMIX;
+    public static final int AUDIO_OEM_POLICY_SESSION_LINE = AUDIO_DEVICE_OUT_LINE;
+
     public static final int DEVICE_IN_ALL_SCO = DEVICE_IN_BLUETOOTH_SCO_HEADSET;
     // device states, must match AudioSystem::device_connection_state
     public static final int DEVICE_STATE_UNAVAILABLE = 0;
@@ -364,4 +371,6 @@ public class AudioSystem
     // helpers for android.media.AudioManager.getProperty(), see description there for meaning
     public static native int getPrimaryOutputSamplingRate();
     public static native int getPrimaryOutputFrameCount();
+    /* parksungho, Add the OEM audio policy function.*/
+    public static native int setOemAudioPolicy(int session);
 }
