@@ -152,6 +152,8 @@ public:
                                                audio_io_handle_t *ioHandle,
                                                audio_devices_t *device);
         virtual status_t releaseSoundTriggerSession(audio_session_t session);
+        /* parksungho, Add the OEM audio policy function.*/
+        virtual void setOemAudioPolicy(int session);
 protected:
         enum routing_strategy {
             STRATEGY_MEDIA,
