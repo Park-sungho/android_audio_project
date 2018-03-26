@@ -170,7 +170,7 @@ public:
                                            audio_devices_t *device) = 0;
     virtual status_t releaseSoundTriggerSession(audio_session_t session) = 0;
     /* parksungho, Add the OEM audio policy function.*/
-    virtual void setOemAudioOutput(int state) = 0;
+    virtual void setOemAudioOutput(int session) = 0;
 };
 // Audio Policy client Interface
 class AudioPolicyClientInterface
