@@ -34,6 +34,10 @@ LOCAL_STATIC_LIBRARIES := \
     libserviceutility
 LOCAL_MODULE:= libaudiopolicyservice
 LOCAL_CFLAGS += -fvisibility=hidden
+#parksungho, Add the OEM audio policy function.
+ifeq ($(OEM_AUDIO_SUPPORT),yes)
+  LOCAL_CFLAGS += -DOEM_AUDIO_SUPPORT
+endif
 include $(BUILD_SHARED_LIBRARY)
 ifneq ($(USE_LEGACY_AUDIO_POLICY), 1)
 include $(CLEAR_VARS)
