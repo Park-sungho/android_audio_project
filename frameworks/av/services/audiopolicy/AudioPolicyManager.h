@@ -682,6 +682,8 @@ protected:
         uint32_t        mTestChannels;
         uint32_t        mTestLatencyMs;
 #endif //AUDIO_POLICY_TEST
+        /* parksungho, Add the OEM audio policy function.*/
+        int mOemSession;
 private:
         static float volIndexToAmpl(audio_devices_t device, const StreamDescriptor& streamDesc,
                 int indexInUi);
