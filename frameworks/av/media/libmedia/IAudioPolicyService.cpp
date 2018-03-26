@@ -67,6 +67,7 @@ enum {
     START_AUDIO_SOURCE,
     STOP_AUDIO_SOURCE,
     SET_AUDIO_PORT_CALLBACK_ENABLED,
+    SET_OEM_AUDIO_POLICY,  // parksungho, Add the OEM audio policy function
 };
 #define MAX_ITEMS_PER_LIST 1024
 class BpAudioPolicyService : public BpInterface<IAudioPolicyService>
@@ -715,6 +716,15 @@ public:
         status = (status_t)reply.readInt32();
         return status;
     }
+    /* parksungho, Add the OEM audio policy function.*/
+    virtual status_t setOemAudioPolicy(int session)
+    {
+        Parcel data, reply;
+        data.writeInterfaceToken(IAudioPolicyService::getInterfaceDescriptor());
+        data.writeInt32(session);
+        remote()->transact(SET_OEM_AUDIO_POLICY, data, &reply);
+        return static_cast <status_t> (reply.readInt32());
+    }
 };
 IMPLEMENT_META_INTERFACE(AudioPolicyService, "android.media.IAudioPolicyService");
 // ----------------------------------------------------------------------
@@ -1210,6 +1220,13 @@ status_t BnAudioPolicyService::onTransact(
             audio_io_handle_t handle = (audio_io_handle_t)data.readInt32();
             status_t status = stopAudioSource(handle);
             reply->writeInt32(status);
+            return NO_ERROR;
+        } break;
+        case SET_OEM_AUDIO_POLICY: {
+            /* parksungho, Add the OEM audio policy function.*/
+            CHECK_INTERFACE(IAudioPolicyService, data, reply);
+            reply->writeInt32(static_cast <uint32_t>(setOemAudioPolicy(
+                    (int) data.readInt32())));
             return NO_ERROR;
         } break;
         default:
