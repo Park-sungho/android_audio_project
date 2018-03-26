@@ -1075,4 +1075,16 @@ void AudioSystem::AudioPolicyServiceClient::binderDied(const wp<IBinder>& who __
     }
     ALOGW("AudioPolicyService server died!");
 }
+    
+/* parksungho, Add the OEM audio policy function.*/
+status_t AudioSystem::setOemAudioPolicy(int session)
+{
+    const sp<IAudioPolicyService>&aps = AudioSystem::get_audio_policy_service();
+    if (aps == 0) {
+        return PERMISSION_DENIED;
+    }
+
+    return aps->setOemAudioPolicy(session);
+}
+
 } // namespace android
