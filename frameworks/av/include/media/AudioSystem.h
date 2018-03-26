@@ -255,6 +255,10 @@ public:
     /* Create an audio patch between several source and sink ports */
     static status_t createAudioPatch(const struct audio_patch *patch,
                                        audio_patch_handle_t *handle);
+    
+    /* parksungho, Add the OEM audio policy function.*/
+    static status_t setOemAudioPolicy(int session);
+    
     /* Release an audio patch */
     static status_t releaseAudioPatch(audio_patch_handle_t handle);
     /* List existing audio patches */
